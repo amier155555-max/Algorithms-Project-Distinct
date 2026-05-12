@@ -14,9 +14,18 @@ def solution_sorting(A):
             
     return distinct_count
 #2-the second method
-def solution_set(A):
 
-    return len(set(A))
+   def solution_recursive(A):
+    # الحالة الأساسية: مصفوفة فارغة
+    if not A:
+        return 0
+    
+    # نأخذ أول عنصر ونحذفه من بقية القائمة (تصفية)
+    first = A[0]
+    rest = [x for x in A[1:] if x != first]
+    
+    # الاستدعاء الذاتي
+    return 1 + solution_recursive(rest)
 
 if __name__ == "__main__":
     example_array = [2, 1, 1, 2, 3, 1]
