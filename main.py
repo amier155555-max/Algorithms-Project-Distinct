@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(2000)
+sys.setrecursionlimit(100,000)
 
 # --- Algorithm 1: Non-recursive (Sorting Approach) ---
 # Total Time Complexity: O(N log N) 
