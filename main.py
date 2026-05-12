@@ -1,7 +1,6 @@
 import sys
-
 sys.setrecursionlimit(2000)
-
+#functin Non-recursive 
 def solution_sorting(A):
     n = len(A)
     if n == 0:
@@ -16,23 +15,21 @@ def solution_sorting(A):
             
     return distinct_count
 
-def solution_set(A):
-    return len(set(A))
-
+#function recursive
 def solution_recursive(A):
     if not A:
         return 0
     
     first = A[0]
-    rest = [x for x in A[1:] if x != first]
+    rest = [x for x in A[1:]
+            if x != first]
     
     return 1 + solution_recursive(rest)
 
-if __name__ == "__main__":
-    example_array = [2, 1, 1, 2, 3, 1]
+example_array = [2, 1, 1, 2, 3, 1]
     
-    print("--- Distinct Elements Analysis ---")
-    print(f"Input Array: {example_array}")
-    print(f"Count (Sorting Method): {solution_sorting(example_array)}")
-    print(f"Count (Set Method): {solution_set(example_array)}")
-    print(f"Count (Recursive Method): {solution_recursive(example_array)}")
+print("--- Distinct Elements Analysis ---")
+print(f"Input Array: {example_array}")
+print(f"Count (Sorting Method): {solution_sorting(example_array)}")
+print(f"Count (Set Method): {solution_set(example_array)}")
+print(f"Count (Recursive Method): {solution_recursive(example_array)}")
