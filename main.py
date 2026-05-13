@@ -48,7 +48,51 @@ def solution_recursive(A):
     rest = [x for x in A[1:] if x != first] # O(n) 
     
     return 1 + solution_recursive(rest) # T(n-k)
+    
+# --- Algorithm 1: Merge Sort Approach (Recursive) ---
+def merge_sort_distinct(A):
+    n = len(A)                               # O(1)
+    if n == 0: return 0                      # O(1)
+    
+    sorted_A = merge_sort(A)                 # O(N log N)
+    
+    distinct_count = 1                       # O(1)
+    for i in range(1, n):                    # O(N)
+        if sorted_A[i] != sorted_A[i-1]:     # O(1)
+            distinct_count += 1              # O(1)
+            
+    # Equation: T(n) = O(N log N) + O(N) + O(1)
+    # Final Complexity: O(N log N)
+    return distinct_count                    
 
+def merge_sort(arr):
+    if len(arr) <= 1:                        # O(1)
+        return arr                           
+    
+    mid = len(arr) // 2                      # O(1)
+    left = merge_sort(arr[:mid])             # T(N/2)
+    right = merge_sort(arr[mid:])            # T(N/2)
+    
+    # Equation: T(n) = 2T(n/2) + O(n)
+    return merge(left, right)                
+
+def merge(left, right):
+    result = []                              # O(1)
+    i = j = 0                                # O(1)
+    
+    while i < len(left) and j < len(right):  # O(N)
+        if left[i] < right[j]:               # O(1)
+            result.append(left[i])           
+            i += 1                           
+        else:                                
+            result.append(right[j])          
+            j += 1                           
+            
+    result.extend(left[i:])                  # O(N)
+    result.extend(right[j:])                 # O(N)
+    
+    # Equation: T(n) = O(N)
+    return result
 
 # --- Execution ---
 #user_input = input("Enter integers separated by spaces: ")
@@ -56,6 +100,7 @@ def solution_recursive(A):
 example_array = [2, 1, 1, 2, 3, 1]      # O(1)
     
 print("--- Distinct Elements Analysis ---")
-print(f"Count (Sorting Method): {solution_sorting(example_array)}")     # O(n^2)
+print(f"Count (Bubble Sort): {solution_sorting(example_array.copy())}") # O(n^2)
+print(f"Count (Merge Sort): {merge_sort_distinct(example_array.copy())}") # O(n log n)
+print(f"Count (Recursive): {solution_recursive(example_array)}")        # O(n^2)
 print(f"Count (Set Method): {solution_set(example_array)}")             # O(n)
-print(f"Count (Recursive Method): {solution_recursive(example_array)}") # O(n^2)
