@@ -1,48 +1,31 @@
 import sys
 sys.setrecursionlimit(100,000)
 
-# --- Algorithm 1: Non-recursive (Sorting Approach) ---
-# Total Time Complexity:(O(N) * O(LOG N)) + O(N) = O(N log N) 
+# --- Algorithm 1: Non-recursive (Bubble Sort) ---
+# Time Complexity Calculation:
+# Total Time = O(1) + [O(N) * O(N)] + O(N)
+# Total Time = O(N^2) + O(N)
+# Final Time Complexity = O(N^2)
 def solution_sorting(A):
     n = len(A)                          # O(1)
     if n == 0:                          # O(1)
         return 0                        # O(1)
-    if n == 1:                          # O(1)
-        return 1                        # O(1)
-# We use a simple list as a stack to store the start and end indices
-    stack = [(0, n - 1)]
-    
-    while len(stack) > 0:               #O(log N)
-        
-        start, end = stack.pop()        #O(1)
-        
-        if start >= end:                #O(1)
-            continue                    #O(1)
-# Partitioning logic: pick a pivot and move smaller items to the left
-        pivot = A[end]                  #O(1)
-        low = start                     #O(1)
-        for i in range(start, end):     #O(N)
-            if A[i] < pivot:            #O(1)
-                # Manual swap           #O(1)
-                temp = A[i]             #O(1)
-                A[i] = A[low]           #O(1)
-                A[low] = temp           #O(1)
-                low += 1                #O(1)
-   # Place pivot in its final position
-        A[low], A[end] = A[end], A[low] #O(1)
-        
-        # Push the left and right parts onto our stack to sort them next
-        stack.append((start, low - 1))  #O(1)
-        stack.append((low + 1, end))    #O(1)
 
-    # --- Manual Counting of Distinct Elements ---
-    distinct_count = 1                  #O(1)
-    for i in range(1, n):               #O(N)
-        if A[i] != A[i-1]:              #O(1)
-            distinct_count += 1         #O(1)
-            
-    return distinct_count               #O(1)
+    # --- Sorting Phase ---
+    for i in range(n):                  # O(N)
+        for j in range(0, n - i - 1):   # O(N)
+            if A[j] > A[j + 1]:         # O(1)
+                temp = A[j]             # O(1)
+                A[j] = A[j + 1]         # O(1)
+                A[j + 1] = temp         # O(1)
 
+    # --- Counting Phase ---
+    distinct_count = 1                  # O(1)
+    for i in range(1, n):               # O(N)
+        if A[i] != A[i - 1]:            # O(1)
+            distinct_count += 1         # O(1)
+
+    return distinct_count               # O(1)
 
 # --- Additional Method: Set Approach ---
 # Total Time Complexity: O(N)
